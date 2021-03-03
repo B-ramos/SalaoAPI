@@ -6,7 +6,7 @@ namespace Salao.Data.Services
     public interface IAgendamentoService
     {
         List<Agendamento> FindAll();
-        Agendamento FindbyId(int id);
+        Agendamento FindById(int id);
         Agendamento Create(Agendamento agendamento);
         Agendamento Update(Agendamento agendamento);
         void Delete(int id);        

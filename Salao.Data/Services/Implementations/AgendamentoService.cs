@@ -18,7 +18,7 @@ namespace Salao.Data.Services.Implementations
             return _repo.FindAll();
         }
 
-        public Agendamento FindbyId(int id)
+        public Agendamento FindById(int id)
         {
             return _repo.FindById(id);
         }

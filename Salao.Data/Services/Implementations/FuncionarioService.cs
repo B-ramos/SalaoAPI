@@ -18,7 +18,7 @@ namespace Salao.Data.Services.Implementations
             return _repo.FindAll();
         }
 
-        public Funcionario FindbyId(int id)
+        public Funcionario FindById(int id)
         {
             return _repo.FindById(id);
         }

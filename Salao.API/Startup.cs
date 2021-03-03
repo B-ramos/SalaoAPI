@@ -28,12 +28,20 @@ namespace Salao.API
             services.AddDbContext<SalaoContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            
 
-            //Services
+            //Dependency Injection Services
+            services.AddScoped<IAgendamentoService, AgendamentoService>();
             services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IEnderecoService, EnderecoService>();
+            services.AddScoped<IFuncionarioService, FuncionarioService>();
+            services.AddScoped<IFuncionarioServicoService, FuncionarioServicoService>();
+            services.AddScoped<IServicoService, ServicoService>();
 
-            //Repository
+            //Dependency Injection Repository
             services.AddScoped<IAgendamentoRepository, AgendamentoRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();

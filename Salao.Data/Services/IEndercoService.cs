@@ -6,7 +6,7 @@ namespace Salao.Data.Services
     public interface IEnderecoService
     {
         List<Endereco> FindAll();
-        Endereco FindbyId(int id);
+        Endereco FindById(int id);
         Endereco Create(Endereco endereco);
         Endereco Update(Endereco endereco);
         void Delete(int id);        

@@ -24,8 +24,6 @@ namespace Salao.Data.Map
             builder.Property(x => x.Preco)
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
-
-
         }
 
     }

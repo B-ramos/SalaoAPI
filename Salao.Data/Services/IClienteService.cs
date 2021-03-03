@@ -6,7 +6,7 @@ namespace Salao.Data.Services
     public interface IClienteService
     {
         List<Cliente> FindAll();
-        Cliente FindbyId(int id);
+        Cliente FindById(int id);
         Cliente Create(Cliente cliente);
         Cliente Update(Cliente cliente);
         void Delete(int id);        

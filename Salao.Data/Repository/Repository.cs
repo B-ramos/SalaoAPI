@@ -51,6 +51,10 @@ namespace Salao.Data.Repository
         public void Delete(int id)
         {
             var entity = FindById(id);
+
+            if (entity == null)
+                return;
+
             dataset.Remove(entity);
             _context.SaveChanges();
         }

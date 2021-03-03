@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Salao.Data.Map;
 using Salao.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,13 @@ namespace Salao.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AgendamentoMap());
+            modelBuilder.ApplyConfiguration(new ClienteMap());
+            modelBuilder.ApplyConfiguration(new EnderecoMap());
+            modelBuilder.ApplyConfiguration(new FuncionarioMap());
+            modelBuilder.ApplyConfiguration(new FuncionarioServicoMap());
+            modelBuilder.ApplyConfiguration(new ServicoMap());
+
             base.OnModelCreating(modelBuilder);
         }
     }

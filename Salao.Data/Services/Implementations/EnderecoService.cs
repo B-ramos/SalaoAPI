@@ -18,7 +18,7 @@ namespace Salao.Data.Services.Implementations
             return _repo.FindAll();
         }
 
-        public Endereco FindbyId(int id)
+        public Endereco FindById(int id)
         {
             return _repo.FindById(id);
         }
