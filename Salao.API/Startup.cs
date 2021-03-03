@@ -5,6 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Salao.Data.Context;
+using Salao.Data.Repository;
+using Salao.Data.Repository.Implementations;
+using Salao.Data.Repository.Interface;
+using Salao.Data.Services;
+using Salao.Data.Services.Implementations;
 
 namespace Salao.API
 {
@@ -24,6 +29,17 @@ namespace Salao.API
                 options => options.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));
 
             services.AddControllers();
+
+            //Services
+            services.AddScoped<IClienteService, ClienteService>();
+
+            //Repository
+            services.AddScoped<IAgendamentoRepository, AgendamentoRepository>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+            services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
+            services.AddScoped<IFuncionarioServicoRepository, FuncionarioServicoRepository>();
+            services.AddScoped<IServicoRepository, ServicoRepository>();
         }
 
         
