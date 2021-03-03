@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salao.API", "Salao.API\Sala
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salao.Domain", "Salao.Domain\Salao.Domain.csproj", "{8BD8FC8E-2F28-488C-900E-F3AEAFBD5D80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salao.Data", "Salao.Data\Salao.Data.csproj", "{362B7936-4A0A-4072-85B8-D59B4475A702}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8BD8FC8E-2F28-488C-900E-F3AEAFBD5D80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BD8FC8E-2F28-488C-900E-F3AEAFBD5D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BD8FC8E-2F28-488C-900E-F3AEAFBD5D80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{362B7936-4A0A-4072-85B8-D59B4475A702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{362B7936-4A0A-4072-85B8-D59B4475A702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{362B7936-4A0A-4072-85B8-D59B4475A702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{362B7936-4A0A-4072-85B8-D59B4475A702}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
