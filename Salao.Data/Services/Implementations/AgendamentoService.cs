@@ -1,4 +1,5 @@
 ﻿using Salao.Data.Repository.Interface;
+using Salao.Data.Services.Interface;
 using Salao.Domain.Model;
 using System.Collections.Generic;
 
@@ -28,14 +29,25 @@ namespace Salao.Data.Services.Implementations
             return _repo.Create(agendamento);
         }
         
-        public Agendamento Update(Agendamento agendamento)
+        public Agendamento Update(Agendamento novoAgendamento)
         {
-            return _repo.Update(agendamento);
+            var agendamento = _repo.FindById(novoAgendamento.Id);
+
+            if (agendamento == null)
+                return null;
+
+            return _repo.Update(agendamento, novoAgendamento);
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            _repo.Delete(id);
+            var agendamento = _repo.FindById(id);
+
+            if (agendamento == null)
+                return false;
+
+            _repo.Delete(agendamento);
+            return true;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Salao.Data.Repository.Interface;
+using Salao.Data.Services.Interface;
 using Salao.Domain.Model;
 using System.Collections.Generic;
 
@@ -28,14 +29,27 @@ namespace Salao.Data.Services.Implementations
             return _repo.Create(funcionario);
         }
         
-        public Funcionario Update(Funcionario funcionario)
+        public Funcionario Update(Funcionario novoFuncionario)
         {
-            return _repo.Update(funcionario);
+            var funcionario = _repo.FindById(novoFuncionario.Id);
+
+            if (funcionario == null)
+                return null;
+
+            return _repo.Update(funcionario, novoFuncionario);
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            _repo.Delete(id);
+            var funcionario = _repo.FindById(id);
+
+            if (funcionario == null)
+                return false;
+
+            _repo.Delete(funcionario);
+            return true;
         }
+
+        
     }
 }

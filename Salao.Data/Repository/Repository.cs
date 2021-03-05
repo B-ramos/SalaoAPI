@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Salao.Data.Context;
 using Salao.Domain.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Salao.Data.Repository
 {
@@ -28,6 +26,7 @@ namespace Salao.Data.Repository
         {
             return dataset.FirstOrDefault(x => x.Id.Equals(id));
         }
+
         public T Create(T entity)
         {
             dataset.Add(entity);
@@ -36,25 +35,16 @@ namespace Salao.Data.Repository
             return entity;
         }
 
-        public T Update(T entity)
-        {
-            var result = FindById(entity.Id);
-            if (result == null)
-                return null;
-
-            _context.Entry(result).CurrentValues.SetValues(entity);
+        public T Update(T entity, T newEntity)
+        { 
+            _context.Entry(entity).CurrentValues.SetValues(newEntity);
             _context.SaveChanges();
 
             return entity;
         }
 
-        public void Delete(int id)
-        {
-            var entity = FindById(id);
-
-            if (entity == null)
-                return;
-
+        public void Delete(T entity)
+        { 
             dataset.Remove(entity);
             _context.SaveChanges();
         }

@@ -1,7 +1,7 @@
 ﻿using Salao.Domain.Model;
 using System.Collections.Generic;
 
-namespace Salao.Data.Services
+namespace Salao.Data.Services.Interface
 {
     public interface IAgendamentoService
     {
@@ -9,6 +9,6 @@ namespace Salao.Data.Services
         Agendamento FindById(int id);
         Agendamento Create(Agendamento agendamento);
         Agendamento Update(Agendamento agendamento);
-        void Delete(int id);        
+        bool Delete(int id);        
     }
 }

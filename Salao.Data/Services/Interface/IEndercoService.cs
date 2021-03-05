@@ -1,7 +1,7 @@
 ﻿using Salao.Domain.Model;
 using System.Collections.Generic;
 
-namespace Salao.Data.Services
+namespace Salao.Data.Services.Interface
 {
     public interface IEnderecoService
     {
@@ -9,6 +9,6 @@ namespace Salao.Data.Services
         Endereco FindById(int id);
         Endereco Create(Endereco endereco);
         Endereco Update(Endereco endereco);
-        void Delete(int id);        
+        bool Delete(int id);        
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Salao.Data.Map;
 using Salao.Domain.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Salao.Data.Context
 {

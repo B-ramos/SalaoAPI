@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Salao.Data.Services;
+using Salao.Data.Services.Interface;
 using Salao.Domain.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Salao.API.Controllers
 {
@@ -21,14 +16,31 @@ namespace Salao.API.Controllers
             _clienteService = clienteService;
         }
 
-        // GET: api/<ClientesController>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(500)]
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_clienteService.FindAll());
+            try
+            {
+                var result = _clienteService.FindAll();
+
+                if (result.Count < 1)
+                    return NoContent();
+
+                return Ok(result);
+            }
+            catch (System.Exception)
+            {
+
+                return StatusCode(500);
+            }
         }
 
-        // GET api/<ClientesController>/5
+        [ProducesResponseType(200)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(500)]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -38,33 +50,61 @@ namespace Salao.API.Controllers
 
             return Ok(cliente);
         }
-            
-        // POST api/<ClientesController>
+
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         [HttpPost]
         public IActionResult Post([FromBody] Cliente cliente )  
         {
-            if (cliente == null) 
-                return BadRequest();
+            try
+            {
+                if (string.IsNullOrEmpty(cliente.Nome) || string.IsNullOrEmpty(cliente.Telefone))
+                    return BadRequest("Nome e telefone não podem ser nulos");
 
-            return Ok(_clienteService.Create(cliente));
+                var result = _clienteService.Create(cliente);
+                
+                return Created($"https://localhost:44399/api/clientes/{result.Id}", result);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }            
         }
 
-        // PUT api/<ClientesController>/5
-        [HttpPut("{id}")]
-        public IActionResult Put([FromBody] Cliente cliente)
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        [HttpPut]
+        public IActionResult Put([FromBody] Cliente novoCliente)
         {
-            if (cliente == null)
-                return BadRequest();
+            try
+            {                
+                var result = _clienteService.Update(novoCliente);
 
-            return Ok(_clienteService.Update(cliente));
+                if (result == null)
+                    return BadRequest("O cliente não existe.");
+
+                return Created($"https://localhost:44399/api/clientes/{result.Id}", result);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
 
-        // DELETE api/<ClientesController>/5
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _clienteService.Delete(id);
-            return NoContent();
+            var result = _clienteService.Delete(id);
+
+            if (!result)
+                return BadRequest("O cliente não existe");
+
+            return Ok("Cliente foi removido com sucesso.");
         }
     }
 }

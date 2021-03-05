@@ -1,7 +1,7 @@
 ﻿using Salao.Domain.Model;
 using System.Collections.Generic;
 
-namespace Salao.Data.Services
+namespace Salao.Data.Services.Interface
 {
     public interface IFuncionarioServicoService
     {
@@ -9,6 +9,6 @@ namespace Salao.Data.Services
         FuncionarioServico FindById(int id);
         FuncionarioServico Create(FuncionarioServico funcionarioServico);
         FuncionarioServico Update(FuncionarioServico funcionarioServico);
-        void Delete(int id);        
+        bool Delete(int id);        
     }
 }

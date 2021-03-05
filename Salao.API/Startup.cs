@@ -5,11 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Salao.Data.Context;
-using Salao.Data.Repository;
 using Salao.Data.Repository.Implementations;
 using Salao.Data.Repository.Interface;
-using Salao.Data.Services;
 using Salao.Data.Services.Implementations;
+using Salao.Data.Services.Interface;
 
 namespace Salao.API
 {
