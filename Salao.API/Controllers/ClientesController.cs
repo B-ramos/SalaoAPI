@@ -16,6 +16,16 @@ namespace Salao.API.Controllers
             _clienteService = clienteService;
         }
 
+        /// <summary>
+        /// Retorna lista de clientes.
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de request:
+        ///     Get /api/clientes
+        /// </remarks>
+        /// <response code="200">Retorna lista de clientes.</response>
+        /// <response code="204">Não encontrou nenhum cliente.</response>
+        /// <response code="500">Erro interno no Servidor.</response> 
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
@@ -38,6 +48,17 @@ namespace Salao.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Retorna cliente por Id.
+        /// </summary>
+        /// /// <param name="id">Identificador do cliente.</param>
+        /// <remarks>
+        /// Exemplo de request:
+        ///     Get /api/clientes/1
+        /// </remarks>
+        /// <response code="200">Retorna o cliente .</response>
+        /// <response code="204">Cliente não foi encontrado.</response>
+        /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
@@ -51,6 +72,21 @@ namespace Salao.API.Controllers
             return Ok(cliente);
         }
 
+        /// <summary>
+        /// Inclui um novo cliente.
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de request:
+        ///     Post /api/clientes
+        ///     
+        ///         {
+        ///             "nome" : "nomeCliente",
+        ///             "telefone" : 11 999999999"
+        ///         }
+        /// </remarks>
+        /// <response code="201">Cliente incluído com sucesso.</response>
+        /// <response code="400">Nome ou telefone nulo.</response>
+        /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
@@ -72,8 +108,24 @@ namespace Salao.API.Controllers
             }            
         }
 
+        /// <summary>
+        /// Altera um cliente.
+        /// </summary>   
+        /// <remarks>
+        /// Exemplo de request:        
+        ///     Put /api/aluno/1
+        ///     
+        ///         {
+        ///             "id": 1,
+        ///             "nome" : "novoNome",
+        ///             "telefone" : "novoTelefone"
+        ///         }
+        /// </remarks>
+        /// <response code="201">Cliente alterado com sucesso.</response>
+        /// <response code="204">Cliente não foi encontrado.</response>
+        /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
         [ProducesResponseType(500)]
         [HttpPut]
         public IActionResult Put([FromBody] Cliente novoCliente)
@@ -83,7 +135,7 @@ namespace Salao.API.Controllers
                 var result = _clienteService.Update(novoCliente);
 
                 if (result == null)
-                    return BadRequest("O cliente não existe.");
+                    return NoContent();
 
                 return Created($"https://localhost:44399/api/clientes/{result.Id}", result);
             }
@@ -93,8 +145,20 @@ namespace Salao.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Remove cliente por Id.
+        /// </summary>
+        /// /// <param name="id">Identificador do cliente.</param>
+        /// <remarks>
+        /// Exemplo de request:
+        ///     Delete /api/clientes/1        
+        ///       
+        /// </remarks>
+        /// <response code="200">Cliente removido com sucesso.</response>
+        /// <response code="204">Cliente não foi encontrado.</response>
+        /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
         [ProducesResponseType(500)]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
@@ -102,7 +166,7 @@ namespace Salao.API.Controllers
             var result = _clienteService.Delete(id);
 
             if (!result)
-                return BadRequest("O cliente não existe");
+                return NoContent();
 
             return Ok("Cliente foi removido com sucesso.");
         }
