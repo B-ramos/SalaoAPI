@@ -73,7 +73,7 @@
               "target": "Package",
               "version": "[3.1.5, )"
             },
-            "Swashbuckle.AspNetCore.Swagger": {
+            "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.0.7, )"
             }

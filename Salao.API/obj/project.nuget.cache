@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PyBTmSxAPideTesu9l/D5LFBUvp1CkxQLczYWwapOC7ti5QxhKMHf+Ym06necv+CKvN0JjaJDSHzXde+BRaIkA==",
+  "dgSpecHash": "ttDqolObr8bYJWOIlYlhODuPyAV1nBQZzXi3oUhHLQMhHOVcbku9vntnWoeERkbQYQCTTv0l3ad3SlisyXkqlQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\bramo\\Área de Trabalho\\Desenvolvimento\\CampinasTech\\Salao.API\\Salao.API\\Salao.API.csproj",
   "expectedPackageFiles": [
@@ -31,6 +31,7 @@
     "C:\\Users\\bramo\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\3.1.12\\microsoft.entityframeworkcore.sqlite.core.3.1.12.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\3.1.12\\microsoft.entityframeworkcore.sqlserver.3.1.12.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\3.1.12\\microsoft.entityframeworkcore.tools.3.1.12.nupkg.sha512",
+    "C:\\Users\\bramo\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\3.1.12\\microsoft.extensions.caching.abstractions.3.1.12.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\microsoft.extensions.caching.memory\\3.1.12\\microsoft.extensions.caching.memory.3.1.12.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.12\\microsoft.extensions.configuration.3.1.12.nupkg.sha512",
@@ -90,7 +91,10 @@
     "C:\\Users\\bramo\\.nuget\\packages\\sqlitepclraw.core\\2.0.2\\sqlitepclraw.core.2.0.2.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.0.2\\sqlitepclraw.lib.e_sqlite3.2.0.2.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\sqlitepclraw.provider.dynamic_cdecl\\2.0.2\\sqlitepclraw.provider.dynamic_cdecl.2.0.2.nupkg.sha512",
+    "C:\\Users\\bramo\\.nuget\\packages\\swashbuckle.aspnetcore\\6.0.7\\swashbuckle.aspnetcore.6.0.7.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.0.7\\swashbuckle.aspnetcore.swagger.6.0.7.nupkg.sha512",
+    "C:\\Users\\bramo\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.0.7\\swashbuckle.aspnetcore.swaggergen.6.0.7.nupkg.sha512",
+    "C:\\Users\\bramo\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.0.7\\swashbuckle.aspnetcore.swaggerui.6.0.7.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\system.appcontext\\4.3.0\\system.appcontext.4.3.0.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\system.buffers\\4.3.0\\system.buffers.4.3.0.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",

@@ -4,11 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Salao.Data.Context;
 using Salao.Data.Repository.Implementations;
 using Salao.Data.Repository.Interface;
 using Salao.Data.Services.Implementations;
 using Salao.Data.Services.Interface;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace Salao.API
 {
@@ -47,6 +51,28 @@ namespace Salao.API
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             services.AddScoped<IFuncionarioServicoRepository, FuncionarioServicoRepository>();
             services.AddScoped<IServicoRepository, ServicoRepository>();
+
+
+            //Config Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "API Salao ",
+                    Description = "Serviço para salão de beleza",
+                    TermsOfService = new Uri("https://go.microsoft.com/fwlink/?LinkID=206977"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Your name",
+                        Email = string.Empty,
+                        Url = new Uri("https://www.microsoft.com/learn")
+                    }
+                });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         
@@ -56,6 +82,12 @@ namespace Salao.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(x =>
+            {
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "Salao API CampinasTech");
+            });
 
             app.UseHttpsRedirection();
 
