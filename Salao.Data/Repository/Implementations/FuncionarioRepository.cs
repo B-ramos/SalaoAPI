@@ -11,7 +11,7 @@ namespace Salao.Data.Repository.Implementations
 
         public Funcionario FindByEnderco(int id)
         {
-            return _context.Funcionarios.Where(f => f.EnderecoId.Equals(id)).FirstOrDefault();
+            return _context.Funcionarios.FirstOrDefault(f => f.EnderecoId.Equals(id));
 
         }
     }

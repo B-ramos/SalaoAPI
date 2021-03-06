@@ -7,46 +7,50 @@ namespace Salao.Data.Services.Implementations
 {
     public class ServicoService : IServicoService
     {
-        private readonly IServicoRepository _repo;
+        private readonly IServicoRepository _repoServico;
         
         public ServicoService(IServicoRepository repo)
         {
-            _repo = repo;            
+            _repoServico = repo;            
         }
 
         public List<Servico> FindAll()
         {
-            return _repo.FindAll();
+            return _repoServico.FindAll();
         }
 
         public Servico FindById(int id)
         {
-            return _repo.FindById(id);
+            return _repoServico.FindById(id);
         }
 
         public Servico Create(Servico servico)
         {
-            return _repo.Create(servico);
+            var servicoExiste = _repoServico.FindByName(servico.Nome);
+            if (servicoExiste != null)
+                return null;
+
+            return _repoServico.Create(servico);
         }
         
         public Servico Update(Servico novoServico)
         {
-            var servico = _repo.FindById(novoServico.Id);
+            var servico = _repoServico.FindById(novoServico.Id);
 
             if (servico == null)
                 return null;
 
-            return _repo.Update(servico, novoServico);
+            return _repoServico.Update(servico, novoServico);
         }
 
         public bool Delete(int id)
         {
-            var servico = _repo.FindById(id);
+            var servico = _repoServico.FindById(id);
 
             if (servico == null)
                 return false;
 
-            _repo.Delete(servico);
+            _repoServico.Delete(servico);
             return true;
         }
     }

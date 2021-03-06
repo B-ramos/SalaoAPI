@@ -7,24 +7,24 @@ namespace Salao.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientesController : ControllerBase
+    public class ServicosController : ControllerBase
     {
-        private readonly IClienteService _clienteService;
+        private readonly IServicoService _servicoService;
 
-        public ClientesController(IClienteService clienteService)
+        public ServicosController(IServicoService servicoService)
         {
-            _clienteService = clienteService;
+            _servicoService = servicoService;
         }
 
         /// <summary>
-        /// Retorna lista de clientes.
+        /// Retorna lista de servicos.
         /// </summary>
         /// <remarks>
         /// Exemplo de request:
-        ///     Get /api/clientes
+        ///     Get /api/servicos
         /// </remarks>
-        /// <response code="200">Retorna lista de clientes.</response>
-        /// <response code="204">Não encontrou nenhum cliente.</response>
+        /// <response code="200">Retorna lista de servicos.</response>
+        /// <response code="204">Não encontrou nenhum servico.</response>
         /// <response code="500">Erro interno no Servidor.</response> 
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
@@ -34,12 +34,12 @@ namespace Salao.API.Controllers
         {
             try
             {
-                var clientes = _clienteService.FindAll();
+                var servicos = _servicoService.FindAll();
 
-                if (clientes.Count < 1)
+                if (servicos.Count < 1)
                     return NoContent();
 
-                return Ok(clientes);
+                return Ok(servicos);
             }
             catch (System.Exception)
             {
@@ -49,15 +49,15 @@ namespace Salao.API.Controllers
         }
 
         /// <summary>
-        /// Retorna cliente por Id.
+        /// Retorna servico por Id.
         /// </summary>
-        /// /// <param name="id">Identificador do cliente.</param>
+        /// /// <param name="id">Identificador do servico.</param>
         /// <remarks>
         /// Exemplo de request:
-        ///     Get /api/clientes/1
+        ///     Get /api/servicos/1
         /// </remarks>
-        /// <response code="200">Retorna o cliente .</response>
-        /// <response code="204">Cliente não foi encontrado.</response>
+        /// <response code="200">Retorna o servico .</response>
+        /// <response code="204">Servico não foi encontrado.</response>
         /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
@@ -67,11 +67,11 @@ namespace Salao.API.Controllers
         {
             try
             {
-                var cliente = _clienteService.FindById(id);
-                if (cliente == null)
+                var servico = _servicoService.FindById(id);
+                if (servico == null)
                     return NoContent();
 
-                return Ok(cliente);
+                return Ok(servico);
             }
             catch (System.Exception)
             {
@@ -82,34 +82,41 @@ namespace Salao.API.Controllers
         }
 
         /// <summary>
-        /// Inclui um novo cliente.
+        /// Inclui um novo servico.
         /// </summary>
         /// <remarks>
         /// Exemplo de request:
-        ///     Post /api/clientes
+        ///     Post /api/servicos
         ///     
         ///         {
-        ///             "nome" : "nomeCliente",
-        ///             "telefone" : "999999999"
+        ///             "nome" : "nomeServico",
+        ///             "MinutosParaExecucao" : "29",
+        ///             "preco" : "25.00"
         ///         }
+        ///         
         /// </remarks>
-        /// <response code="201">Cliente incluído com sucesso.</response>
+        /// <response code="201">Servico incluído com sucesso.</response>
         /// <response code="400">Todos os campos são obrigatórios.</response>
         /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         [HttpPost]
-        public IActionResult Post([FromBody] Cliente clienteDto )  
+        public IActionResult Post([FromBody] Servico servicoDto )  
         {
             try
             {
-                if (string.IsNullOrEmpty(clienteDto.Nome) || string.IsNullOrEmpty(clienteDto.Telefone))
+                if (string.IsNullOrEmpty(servicoDto.Nome) || servicoDto.MinutosParaExecucao < 1 ||
+                    servicoDto.Preco < 1)
+                {
                     return BadRequest("Todos os campos são obrigatórios");
+                }
 
-                var cliente = _clienteService.Create(clienteDto);
+                var servico = _servicoService.Create(servicoDto);
+                if (servico == null)
+                    return BadRequest("Serviço já existe.");
                 
-                return Created($"https://localhost:44399/api/clientes/{cliente.Id}", cliente);
+                return Created($"https://localhost:44399/api/servicos/{servico.Id}", servico);
             }
             catch (System.Exception)
             {
@@ -118,35 +125,36 @@ namespace Salao.API.Controllers
         }
 
         /// <summary>
-        /// Altera um cliente.
+        /// Altera um servico.
         /// </summary>   
         /// <remarks>
         /// Exemplo de request:        
-        ///     Put /api/clientes/1
+        ///     Put /api/servicos/1
         ///     
         ///         {
-        ///             "id": 1,
-        ///             "nome" : "novoNome",
-        ///             "telefone" : "novoTelefone"
+        ///             "id" : 1,
+        ///             "nome" : "nomeServico",
+        ///             "MinutosParaExecucao" : "29",
+        ///             "preco" : "25.00"
         ///         }
         /// </remarks>
-        /// <response code="201">Cliente alterado com sucesso.</response>
-        /// <response code="204">Cliente não foi encontrado.</response>
+        /// <response code="201">Servico alterado com sucesso.</response>
+        /// <response code="204">Servico não foi encontrado.</response>
         /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(201)]
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
         [HttpPut]
-        public IActionResult Put([FromBody] Cliente novoCliente)
+        public IActionResult Put([FromBody] Servico novoServico)
         {
             try
             {                
-                var cliente = _clienteService.Update(novoCliente);
+                var servico = _servicoService.Update(novoServico);
 
-                if (cliente == null)
+                if (servico == null)
                     return NoContent();
 
-                return Created($"https://localhost:44399/api/clientes/{cliente.Id}", cliente);
+                return Created($"https://localhost:44399/api/servicos/{servico.Id}", servico);
             }
             catch (System.Exception)
             {
@@ -155,16 +163,16 @@ namespace Salao.API.Controllers
         }
 
         /// <summary>
-        /// Remove cliente por Id.
+        /// Remove servico por Id.
         /// </summary>
-        /// /// <param name="id">Identificador do cliente.</param>
+        /// /// <param name="id">Identificador do servico.</param>
         /// <remarks>
         /// Exemplo de request:
-        ///     Delete /api/clientes/1        
+        ///     Delete /api/servicos/1        
         ///       
         /// </remarks>
-        /// <response code="200">Cliente removido com sucesso.</response>
-        /// <response code="204">Cliente não foi encontrado.</response>
+        /// <response code="200">Servico removido com sucesso.</response>
+        /// <response code="204">Servico não foi encontrado.</response>
         /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
@@ -174,12 +182,12 @@ namespace Salao.API.Controllers
         {
             try
             {
-                var cliente = _clienteService.Delete(id);
+                var servico = _servicoService.Delete(id);
 
-                if (!cliente)
+                if (!servico)
                     return NoContent();
 
-                return Ok("Cliente foi removido com sucesso.");
+                return Ok("Servico foi removido com sucesso.");
             }
             catch (System.Exception)
             {

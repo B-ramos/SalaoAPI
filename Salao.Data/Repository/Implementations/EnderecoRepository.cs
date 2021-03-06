@@ -13,11 +13,9 @@ namespace Salao.Data.Repository.Implementations
        
         public Endereco FindByCep(Endereco endereco)
         {
-            IQueryable<Endereco> query = _context.Enderecos;
-
-            return  query               
-                       .Where(x => x.Numero == endereco.Numero && x.CEP == endereco.CEP)
-                       .FirstOrDefault();
+           
+            return _context.Enderecos.FirstOrDefault(x => x.Numero == endereco.Numero && x.CEP == endereco.CEP);
+                       
         }
     }
 }
