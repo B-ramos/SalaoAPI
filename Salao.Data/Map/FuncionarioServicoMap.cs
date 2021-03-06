@@ -12,13 +12,13 @@ namespace Salao.Data.Map
 
             builder.HasKey(fc => new { fc.FuncionarioId, fc.ServicoId });
 
-            builder.HasOne(fs => fs.Funcionario)
-                .WithMany(f => f.FuncionarioServico)
-                .HasForeignKey(fs => fs.FuncionarioId);
+            builder.HasOne(f => f.Funcionario)
+                .WithMany(fs => fs.FuncionarioServico)
+                .HasForeignKey(f => f.FuncionarioId);
 
-            builder.HasOne(fc => fc.Servico)
-               .WithMany(c => c.FuncionarioServico)
-               .HasForeignKey(fc => fc.FuncionarioId);
+            builder.HasOne(s => s.Servico)
+               .WithMany(fs => fs.FuncionarioServico)
+               .HasForeignKey(s => s.ServicoId);
 
             builder.Property(x => x.Id)
                 .UseIdentityColumn();

@@ -6,9 +6,9 @@ namespace Salao.Data.Services.Interface
     public interface IFuncionarioServicoService
     {
         List<FuncionarioServico> FindAll();
-        FuncionarioServico FindById(int id);
-        FuncionarioServico Create(FuncionarioServico funcionarioServico);
-        FuncionarioServico Update(FuncionarioServico funcionarioServico);
-        bool Delete(int id);        
+        List<FuncionarioServico> FindByIdServico(int id);
+        List<FuncionarioServico> FindByIdFuncionario(int id);
+        FuncionarioServico Create(FuncionarioServico funcionarioServico);       
+        bool Delete(int funcionarioId, int servicoId);        
     }
 }
