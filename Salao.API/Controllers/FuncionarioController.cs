@@ -7,24 +7,24 @@ namespace Salao.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientesController : ControllerBase
+    public class FuncionariosController : ControllerBase
     {
-        private readonly IClienteService _clienteService;
+        private readonly IFuncionarioService _funcionarioService;
 
-        public ClientesController(IClienteService clienteService)
+        public FuncionariosController(IFuncionarioService funcionarioService)
         {
-            _clienteService = clienteService;
+            _funcionarioService = funcionarioService;
         }
 
         /// <summary>
-        /// Retorna lista de clientes.
+        /// Retorna lista de funcionarios.
         /// </summary>
         /// <remarks>
         /// Exemplo de request:
-        ///     Get /api/clientes
+        ///     Get /api/funcionarios
         /// </remarks>
-        /// <response code="200">Retorna lista de clientes.</response>
-        /// <response code="204">Não encontrou nenhum cliente.</response>
+        /// <response code="200">Retorna lista de funcionarios.</response>
+        /// <response code="204">Não encontrou nenhum funcionario.</response>
         /// <response code="500">Erro interno no Servidor.</response> 
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
@@ -34,12 +34,12 @@ namespace Salao.API.Controllers
         {
             try
             {
-                var clientes = _clienteService.FindAll();
+                var funcionarios = _funcionarioService.FindAll();
 
-                if (clientes.Count < 1)
+                if (funcionarios.Count < 1)
                     return NoContent();
 
-                return Ok(clientes);
+                return Ok(funcionarios);
             }
             catch (System.Exception)
             {
@@ -49,15 +49,15 @@ namespace Salao.API.Controllers
         }
 
         /// <summary>
-        /// Retorna cliente por Id.
+        /// Retorna funcionario por Id.
         /// </summary>
-        /// /// <param name="id">Identificador do cliente.</param>
+        /// /// <param name="id">Identificador do funcionario.</param>
         /// <remarks>
         /// Exemplo de request:
-        ///     Get /api/clientes/1
+        ///     Get /api/funcionarios/1
         /// </remarks>
-        /// <response code="200">Retorna o cliente .</response>
-        /// <response code="204">Cliente não foi encontrado.</response>
+        /// <response code="200">Retorna o funcionario .</response>
+        /// <response code="204">Funcionario não foi encontrado.</response>
         /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
@@ -67,11 +67,11 @@ namespace Salao.API.Controllers
         {
             try
             {
-                var cliente = _clienteService.FindById(id);
-                if (cliente == null)
+                var funcionario = _funcionarioService.FindById(id);
+                if (funcionario == null)
                     return NoContent();
 
-                return Ok(cliente);
+                return Ok(funcionario);
             }
             catch (System.Exception)
             {
@@ -82,34 +82,43 @@ namespace Salao.API.Controllers
         }
 
         /// <summary>
-        /// Inclui um novo cliente.
+        /// Inclui um novo funcionario.
         /// </summary>
         /// <remarks>
         /// Exemplo de request:
-        ///     Post /api/clientes
+        ///     Post /api/funcionarios
         ///     
         ///         {
-        ///             "nome" : "nomeCliente",
+        ///             "nome" : "nomeFuncionario",
         ///             "telefone" : "999999999"
+        ///             "cpf" : "999999999"
         ///         }
         /// </remarks>
-        /// <response code="201">Cliente incluído com sucesso.</response>
-        /// <response code="400">Nome ou telefone nulo.</response>
+        /// <response code="201">Funcionario incluído com sucesso.</response>
+        /// <response code="204">Endereco não existe.</response>
+        /// <response code="400">Todos os campos são obrigatórios.</response>
         /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(201)]
+        [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         [HttpPost]
-        public IActionResult Post([FromBody] Cliente clienteDto )  
+        public IActionResult Post([FromBody] Funcionario funcionarioDto )  
         {
             try
             {
-                if (string.IsNullOrEmpty(clienteDto.Nome) || string.IsNullOrEmpty(clienteDto.Telefone))
-                    return BadRequest("Nome e telefone não podem ser nulos");
+                if (string.IsNullOrEmpty(funcionarioDto.Nome) || string.IsNullOrEmpty(funcionarioDto.Telefone) ||
+                    string.IsNullOrEmpty(funcionarioDto.CPF) || funcionarioDto.EnderecoId < 1)
+                {
+                    return BadRequest("Todos os campo são obrigatórios");
+                }
 
-                var cliente = _clienteService.Create(clienteDto);
+                var funcionario = _funcionarioService.Create(funcionarioDto);
+
+                if (funcionario == null)
+                    return NoContent();
                 
-                return Created($"https://localhost:44399/api/clientes/{cliente.Id}", cliente);
+                return Created($"https://localhost:44399/api/funcionarios/{funcionario.Id}", funcionario);
             }
             catch (System.Exception)
             {
@@ -118,35 +127,37 @@ namespace Salao.API.Controllers
         }
 
         /// <summary>
-        /// Altera um cliente.
+        /// Altera um funcionario.
         /// </summary>   
         /// <remarks>
         /// Exemplo de request:        
-        ///     Put /api/clientes/1
+        ///     Put /api/funcionarios/1
         ///     
         ///         {
         ///             "id": 1,
         ///             "nome" : "novoNome",
         ///             "telefone" : "novoTelefone"
+        ///             "cpf":"33333333333",
+        ///             "enderecoid": 1
         ///         }
         /// </remarks>
-        /// <response code="201">Cliente alterado com sucesso.</response>
-        /// <response code="204">Cliente não foi encontrado.</response>
+        /// <response code="201">Funcionario alterado com sucesso.</response>
+        /// <response code="204">Funcionario não foi encontrado ou enderco não existe.</response>
         /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(201)]
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
         [HttpPut]
-        public IActionResult Put([FromBody] Cliente novoCliente)
+        public IActionResult Put([FromBody] Funcionario novoFuncionario)
         {
             try
             {                
-                var cliente = _clienteService.Update(novoCliente);
+                var funcionario = _funcionarioService.Update(novoFuncionario);
 
-                if (cliente == null)
+                if (funcionario == null)
                     return NoContent();
 
-                return Created($"https://localhost:44399/api/clientes/{cliente.Id}", cliente);
+                return Created($"https://localhost:44399/api/funcionarios/{funcionario.Id}", funcionario);
             }
             catch (System.Exception)
             {
@@ -155,16 +166,16 @@ namespace Salao.API.Controllers
         }
 
         /// <summary>
-        /// Remove cliente por Id.
+        /// Remove funcionario por Id.
         /// </summary>
-        /// /// <param name="id">Identificador do cliente.</param>
+        /// /// <param name="id">Identificador do funcionario.</param>
         /// <remarks>
         /// Exemplo de request:
-        ///     Delete /api/clientes/1        
+        ///     Delete /api/funcionarios/1        
         ///       
         /// </remarks>
-        /// <response code="200">Cliente removido com sucesso.</response>
-        /// <response code="204">Cliente não foi encontrado.</response>
+        /// <response code="200">Funcionario removido com sucesso.</response>
+        /// <response code="204">Funcionario não foi encontrado.</response>
         /// <response code="500">Erro interno no Servidor.</response>
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
@@ -174,12 +185,12 @@ namespace Salao.API.Controllers
         {
             try
             {
-                var cliente = _clienteService.Delete(id);
+                var funcionario = _funcionarioService.Delete(id);
 
-                if (!cliente)
+                if (!funcionario)
                     return NoContent();
 
-                return Ok("Cliente foi removido com sucesso.");
+                return Ok("Funcionario foi removido com sucesso.");
             }
             catch (System.Exception)
             {

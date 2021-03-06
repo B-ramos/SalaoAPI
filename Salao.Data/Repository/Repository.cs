@@ -17,17 +17,17 @@ namespace Salao.Data.Repository
             dataset = context.Set<T>();
         }
 
-        public List<T> FindAll()
+        public virtual List<T> FindAll()
         {
             return dataset.ToList();
         }
 
-        public T FindById(int id)
+        public virtual T FindById(int id)
         {
             return dataset.FirstOrDefault(x => x.Id.Equals(id));
         }
 
-        public T Create(T entity)
+        public virtual T Create(T entity)
         {
             dataset.Add(entity);
             _context.SaveChanges();
