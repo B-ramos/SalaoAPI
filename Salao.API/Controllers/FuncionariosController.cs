@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Salao.API.Dto;
 using Salao.Data.Services.Interface;
 using Salao.Domain.Model;
-
+using System.Collections.Generic;
 
 namespace Salao.API.Controllers
 {
@@ -10,10 +12,12 @@ namespace Salao.API.Controllers
     public class FuncionariosController : ControllerBase
     {
         private readonly IFuncionarioService _funcionarioService;
+        private readonly IMapper _mapper;
 
-        public FuncionariosController(IFuncionarioService funcionarioService)
+        public FuncionariosController(IFuncionarioService funcionarioService, IMapper mapper)
         {
             _funcionarioService = funcionarioService;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -39,7 +43,7 @@ namespace Salao.API.Controllers
                 if (funcionarios.Count < 1)
                     return NoContent();
 
-                return Ok(funcionarios);
+                return Ok(_mapper.Map<IEnumerable<FuncionarioDto>>(funcionarios));
             }
             catch (System.Exception)
             {
@@ -71,7 +75,7 @@ namespace Salao.API.Controllers
                 if (funcionario == null)
                     return NoContent();
 
-                return Ok(funcionario);
+                return Ok(_mapper.Map<FuncionarioDto>(funcionario));
             }
             catch (System.Exception)
             {

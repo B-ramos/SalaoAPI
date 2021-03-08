@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Salao.API.Dto;
 using Salao.Data.Services.Interface;
 using Salao.Domain.Model;
-
+using System.Collections.Generic;
 
 namespace Salao.API.Controllers
 {
@@ -10,43 +12,13 @@ namespace Salao.API.Controllers
     public class FuncionariosServicosController : ControllerBase
     {
         private readonly IFuncionarioServicoService _funcionarioServicoService;
+        private readonly IMapper _mapper;
 
-        public FuncionariosServicosController(IFuncionarioServicoService funcionarioServicoService)
+        public FuncionariosServicosController(IFuncionarioServicoService funcionarioServicoService, IMapper mapper)
         {
             _funcionarioServicoService = funcionarioServicoService;
-        }
-
-        /// <summary>
-        /// Retorna lista de funcionarioServicos.
-        /// </summary>
-        /// <remarks>
-        /// Exemplo de request:
-        ///     Get /api/funcionarioServicos
-        /// </remarks>
-        /// <response code="200">Retorna lista de funcionarioServicos.</response>
-        /// <response code="204">Não encontrou nenhum funcionarioServico.</response>
-        /// <response code="500">Erro interno no Servidor.</response> 
-        [ProducesResponseType(200)]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(500)]
-        [HttpGet]
-        public IActionResult Get()
-        {
-            try
-            {
-                var funcionarioServicos = _funcionarioServicoService.FindAll();
-
-                if (funcionarioServicos.Count < 1)
-                    return NoContent();
-
-                return Ok(funcionarioServicos);
-            }
-            catch (System.Exception)
-            {
-
-                return StatusCode(500);
-            }
-        }
+            _mapper = mapper;
+        }       
 
         /// <summary>
         /// Retorna os funcionarios que prestam o servico pelo Id do servico.
@@ -71,7 +43,7 @@ namespace Salao.API.Controllers
                 if (funcionarioServico == null)
                     return NoContent();
 
-                return Ok(funcionarioServico);
+                return Ok(_mapper.Map<IEnumerable<FuncionarioServicoDto>>(funcionarioServico));
             }
             catch (System.Exception)
             {
@@ -84,7 +56,7 @@ namespace Salao.API.Controllers
         /// <summary>
         /// Retorna os serviços que o funcionario oferece pelo Id do funcionário.
         /// </summary>
-        /// <param name="id">Identificador do Servico.</param>
+        /// <param name="id">Identificador do funcionário.</param>
         /// <remarks>
         /// Exemplo de request:
         ///     Get /api/funcionarioServicos/1
@@ -104,7 +76,7 @@ namespace Salao.API.Controllers
                 if (funcionarioServico == null)
                     return NoContent();
 
-                return Ok(funcionarioServico);
+                return Ok(_mapper.Map<IEnumerable<FuncionarioServicoDto>>(funcionarioServico));
             }
             catch (System.Exception)
             {

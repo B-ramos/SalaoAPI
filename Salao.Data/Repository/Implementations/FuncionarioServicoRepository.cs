@@ -14,6 +14,7 @@ namespace Salao.Data.Repository.Implementations
         public List<FuncionarioServico> FindByIdServico(int id)
         {
             return _context.FuncionariosServicos
+                           .Include(fs => fs.Servico)
                            .Include(fs => fs.Funcionario)
                            .Where(f => f.ServicoId.Equals(id))
                            .ToList();          
@@ -22,6 +23,7 @@ namespace Salao.Data.Repository.Implementations
         public List<FuncionarioServico> FindByIdFuncionario(int id)
         {
             return _context.FuncionariosServicos                          
+                           .Include(fs => fs.Funcionario)
                            .Include(fs => fs.Servico)
                            .Where(fs => fs.FuncionarioId.Equals(id))
                            .ToList();

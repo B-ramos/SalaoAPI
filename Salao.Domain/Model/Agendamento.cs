@@ -16,6 +16,7 @@ namespace Salao.Domain.Model
         public Funcionario Funcionario { get; set; }
 
         public DateTime? Data { get; set; }
+        public DateTime? DataTermino { get; set; }
         public string Anotacao { get; set; }
 
         public StatusAgendamento Status { get; set; }
@@ -23,8 +24,8 @@ namespace Salao.Domain.Model
     }
     public enum StatusAgendamento
     {
-        Pendente = 1,
-        Finalizado = 2,
-        Cancelado = 3
+        Pendente, 
+        Finalizado, 
+        Cancelado
     }
 }

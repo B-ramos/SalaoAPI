@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Salao.API.Dto;
 using Salao.Data.Services.Interface;
 using Salao.Domain.Model;
-
+using System.Collections.Generic;
 
 namespace Salao.API.Controllers
 {
@@ -10,10 +12,12 @@ namespace Salao.API.Controllers
     public class ClientesController : ControllerBase
     {
         private readonly IClienteService _clienteService;
+        private readonly IMapper _mapper;
 
-        public ClientesController(IClienteService clienteService)
+        public ClientesController(IClienteService clienteService, IMapper mapper)
         {
             _clienteService = clienteService;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -39,7 +43,7 @@ namespace Salao.API.Controllers
                 if (clientes.Count < 1)
                     return NoContent();
 
-                return Ok(clientes);
+                return Ok(_mapper.Map<IEnumerable<ClienteDto>>(clientes));                
             }
             catch (System.Exception)
             {
@@ -63,7 +67,7 @@ namespace Salao.API.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult GetByIdCliente(int id)
         {
             try
             {
@@ -71,7 +75,7 @@ namespace Salao.API.Controllers
                 if (cliente == null)
                     return NoContent();
 
-                return Ok(cliente);
+               return Ok(_mapper.Map<ClienteDto>(cliente));
             }
             catch (System.Exception)
             {

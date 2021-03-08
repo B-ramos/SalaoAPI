@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ttDqolObr8bYJWOIlYlhODuPyAV1nBQZzXi3oUhHLQMhHOVcbku9vntnWoeERkbQYQCTTv0l3ad3SlisyXkqlQ==",
+  "dgSpecHash": "c7VDLNGbVJAfR0lobvPtEGUr3C5lCddTA4L5Uh2qGOwwJ8vLKD6pGPtzmPweDSgNVyzt7f52w/wvx+5RY/q+qA==",
   "success": true,
   "projectFilePath": "C:\\Users\\bramo\\Área de Trabalho\\Desenvolvimento\\CampinasTech\\Salao.API\\Salao.API\\Salao.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\bramo\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\bramo\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.12\\microsoft.aspnetcore.jsonpatch.3.1.12.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.12\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.12.nupkg.sha512",
@@ -137,7 +139,7 @@
     "C:\\Users\\bramo\\.nuget\\packages\\system.objectmodel\\4.3.0\\system.objectmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\system.private.datacontractserialization\\4.3.0\\system.private.datacontractserialization.4.3.0.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
-    "C:\\Users\\bramo\\.nuget\\packages\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512",
+    "C:\\Users\\bramo\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "C:\\Users\\bramo\\.nuget\\packages\\system.reflection.extensions\\4.3.0\\system.reflection.extensions.4.3.0.nupkg.sha512",
