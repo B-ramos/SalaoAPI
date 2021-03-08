@@ -30,9 +30,6 @@ namespace Salao.API.Helpers
             //.ForPath(dest => dest.Servico.Nome, opt => opt.MapFrom(src => src.Servico.Nome))
             //.ForPath(dest => dest.Servico.MinutosParaExecucao, opt => opt.MapFrom(src => src.Servico.MinutosParaExecucao))
             //.ForPath(dest => dest.Servico.Preco, opt => opt.MapFrom(src => src.Servico.Preco))
-
-
-
         }
     }
 }
